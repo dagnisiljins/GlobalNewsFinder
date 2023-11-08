@@ -1,0 +1,30 @@
+{% include 'base.twig' %}
+<section class="main-content">
+    <div class="search-box">
+        <form method="get" action="/search">
+            <input type="text" name="q" placeholder="Search Articles">
+            <select name="country" id="country-select">
+                <option value="us">🇺🇸 USA</option>
+                <option value="au">🇦🇺 Australia</option>
+                <option value="gb">🇬🇧 United Kingdom</option>
+            </select>
+            <input type="date" name="from" placeholder="From Date">
+            <input type="date" name="to" placeholder="To Date">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <h1 class="main-content"><big>Search Results</big></h1>
+    <div class="news-container">
+        {% for news in newsCollection.getNewsCollection() %}
+            <div class="news-box">
+                <img src="{{ news.getImage() }}" alt="{{ news.getTitle() }}">
+                <h2>{{ news.getTitle() }}</h2>
+                <p>{{ news.getDescription() }}</p>
+                <a href="{{ news.getUrl() }}" target="_blank">Read More</a>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% include 'footer.twig' %}
+
