@@ -6,9 +6,7 @@ namespace App\Controllers;
 
 use App\Api;
 use App\Response;
-use DateTime;
-use App\Models\NewsCollection;
-use App\Models\News;
+use Carbon\Carbon;
 
 class MainController
 {
@@ -18,41 +16,37 @@ class MainController
     {
         $this->api = new Api();
     }
-
-    public function index(): Response
-    {
-        $news = $this->api->fetchNews('', 'us', '', '');
-        //dump($news); die;
-        return new Response(
-            'index',
-            [
-                'newsCollection' => $news
-            ]
-        );
-    }
-
     public function search(): Response
     {
-        $q = $_GET['q'] ?? '';
-        $country = $_GET['country'] ?? '';
-        $from = $_GET['from'] ?? null; //date formats YYYY-MM-DD
-        $to = $_GET['to'] ?? null; //date formats YYYY-MM-DD
+        $setToToday = Carbon::now()->format('Y-m-d');
 
+        $q = $_GET['q'] ?? '';
+        $country = $_GET['country'] ?? 'lv';
+        $from = $_GET['from'] ?? null;
+        $to = $_GET['to'] ?? $setToToday;
+
+        $countryMappings = [
+            'us' => 'USA',
+            'au' => 'Australia',
+            'gb' => 'United Kingdom',
+            'lv' => 'Latvia',
+        ];
+
+        $countryToDisplay = $countryMappings[$country];
+
+        $to = Carbon::parse($to)->format('Y-m-d');
 
         if (!empty($from) && !empty($to)) {
-            // Attempt to create DateTime objects from the input dates
-            $fromDate = DateTime::createFromFormat('Y-m-d', $from);
-            $toDate = DateTime::createFromFormat('Y-m-d', $to);
+            $fromDate = Carbon::createFromFormat('Y-m-d', $from);
+            $toDate = Carbon::createFromFormat('Y-m-d', $to);
 
-            if ($fromDate && $toDate) {
-                // Dates are valid and in the correct format
-                $from = $fromDate->format('Y-m-d'); // Format to YYYY-MM-DD
-                $to = $toDate->format('Y-m-d'); // Format to YYYY-MM-DD
-            } else {
+            $searchDays = $fromDate->diffInDays(Carbon::now()->format('Y-m-d'));
+
+            if($searchDays > 30) {
                 return new Response(
-                    'error',
+                    'index',
                     [
-                        'error message' => 'Nepareizs datuma formats'// todo izveidot error twig
+                        'message' => "You can't search articles older then 30 days!"
                     ]
                 );
             }
@@ -61,8 +55,9 @@ class MainController
         $news = $this->api->fetchNews($q, $country, $from, $to);
 
         return new Response(
-            'search',
+            'index',
             [
+                'message' => 'Top Articles in ' . $countryToDisplay,
                 'newsCollection' => $news
             ]
         );
