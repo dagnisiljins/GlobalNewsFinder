@@ -26,7 +26,7 @@ class Api
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function fetchNews(
-        string $q='us',
+        string $q='lv', // pamainīju us uz lv
         string $country=null,
         string $from=null,
         string $to=null
