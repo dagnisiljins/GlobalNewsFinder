@@ -6,14 +6,18 @@ use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Twig\Extension\DebugExtension;
 use Dotenv\Dotenv;
+use Carbon\Carbon;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
 
-$loader = new FilesystemLoader(__DIR__ . '/../app/Views/News');
+$loader = new FilesystemLoader(__DIR__ . '/../app/Views/');
 $twig = new Environment($loader);
+
+$currentTime = Carbon::now('Europe/Riga')->format('Y-m-d | H:i');
+$twig->addGlobal('globalTime', $currentTime);
 
 
 $twig->addExtension(new DebugExtension());

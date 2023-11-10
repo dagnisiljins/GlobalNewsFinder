@@ -44,7 +44,7 @@ class MainController
 
             if($searchDays > 30) {
                 return new Response(
-                    'index',
+                    'News/index',
                     [
                         'message' => "You can't search articles older then 30 days!"
                     ]
@@ -55,7 +55,7 @@ class MainController
         $news = $this->api->fetchNews($q, $country, $from, $to);
 
         return new Response(
-            'index',
+            'News/index',
             [
                 'message' => 'Top Articles in ' . $countryToDisplay,
                 'newsCollection' => $news
