@@ -16,6 +16,10 @@ class MainController
     {
         $this->api = new Api();
     }
+
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function search(): Response
     {
         $setToToday = Carbon::now()->format('Y-m-d');

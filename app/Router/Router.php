@@ -14,7 +14,7 @@ class Router
             $routes = include 'routes.php';
 
             foreach ($routes as $route) {
-                $r->addRoute($route[0], $route[1], $route[2]);
+                $r->addRoute($route[0], $route[1], $route[2]); //Šis $route[2] route laikam nav nepieciešams
             }
         });
 
