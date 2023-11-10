@@ -18,12 +18,15 @@ class Api
     {
         $this->api = 'https://newsapi.org/v2/top-headlines?q=';
         $this->client = new Client([
-            'verify' => 'C:/CA certificates/cacert.pem',
+            'verify' => 'C:/CA certificates/cacert.pem', //kas tas par sertifikātu
         ]);
     }
 
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function fetchNews(
-        string $q='us',
+        string $q='lv', // pamainīju us uz lv
         string $country=null,
         string $from=null,
         string $to=null
