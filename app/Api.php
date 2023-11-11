@@ -17,9 +17,7 @@ class Api
     public function __construct()
     {
         $this->api = 'https://newsapi.org/v2/top-headlines?q=';
-        $this->client = new Client([
-            'verify' => 'C:/CA certificates/cacert.pem',
-        ]);
+        $this->client = new Client(); //['verify' => 'C:/CA certificates/cacert.pem',]
     }
 
     public function fetchNews(
