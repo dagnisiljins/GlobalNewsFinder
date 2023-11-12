@@ -130,5 +130,55 @@ footer {
     padding: 10px;
 }
 
+.weather {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    margin: 20px;
+}
+
+.weather p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.weather form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.weather input[type="text"] {
+    width: 250px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.weather button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.weather .searched-weather {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+}
+
+.symbol {
+    font-size: 136px;
+}
+
 
 

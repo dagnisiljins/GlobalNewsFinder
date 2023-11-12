@@ -1,6 +1,23 @@
 {% include 'Partials/base.twig' %}
 
 <section class="main-content">
+    <div class="weather" id="weatherButton">
+        <div>
+            <p>{{ weather.getCityName() }}</p>
+            <h1 class="symbol">{{ weather.getDescription() }}</h1>
+            <p>{{ weather.getTemp() }}</p>
+        </div>
+    </div>
+    <script>
+        // Get the weather div by its id
+        var weatherButton = document.getElementById('weatherButton');
+
+        // Add a click event listener to the div
+        weatherButton.addEventListener('click', function() {
+            // Redirect the user to the "/weather" page
+            window.location.href = '/weather';
+        });
+    </script>
     <div class="search-box">
         <form method="get" action="/search">
             <input type="text" name="q" placeholder="Search Articles">

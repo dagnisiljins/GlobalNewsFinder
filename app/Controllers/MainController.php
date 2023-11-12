@@ -7,14 +7,17 @@ namespace App\Controllers;
 use App\Api;
 use App\Response;
 use Carbon\Carbon;
+use App\WeatherApi;
 
 class MainController
 {
     private Api $api;
+    private WeatherApi $weatherApi;
 
     public function __construct()
     {
         $this->api = new Api();
+        $this->weatherApi = new WeatherApi();
     }
     public function search(): Response
     {
@@ -54,11 +57,14 @@ class MainController
 
         $news = $this->api->fetchNews($q, $country, $from, $to);
 
+        $weatherData = $this->weatherApi->fetchWeatherFromUrl('Riga');
+
         return new Response(
             'News/index',
             [
                 'message' => 'Top Articles in ' . $countryToDisplay,
-                'newsCollection' => $news
+                'newsCollection' => $news,
+                'weather' => $weatherData
             ]
         );
     }
