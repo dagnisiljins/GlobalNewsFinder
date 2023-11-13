@@ -26,7 +26,7 @@ $routeInfo = Router::dispatch();
 
 switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
-        $template = $twig->load('Error/notFound.twig');//todo make twig
+        $template = $twig->load('Error/notFound.twig');
         echo $template->render();
         break;
     case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
